@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            height: 100%;
+        }
+    </style>
+
+</head>
+<body onload="initMap();" >
+
+    <div id="map"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="//maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAw_7Cgp46ydMPyMcEqAl14tbiqACVZ3bA"></script>
+    
+    <script>
+        var x = document.getElementById("map");
+
+
+        var map;
+        //function initMap() {
+        //    map = new google.maps.Map(document.getElementById('map'), {
+        //        center: { lat: -34.397, lng: 150.644 },
+        //        zoom: 8
+        //    });
+        //}
+
+        //var map;
+
+        var mapOptions = {
+            zoom:15,
+            //  mapTypeId: google.maps.mapTypeId.ROADMAP
+            center: { lat: -34.397, lng: 150.644 }
+
+        };
+        map = new google.maps.Map(x, mapOptions);
+        
+        function initMap()
+        {
+            if(navigator.geolocation)
+            {
+                navigator.geolocation.getCurrentPosition(showPosition);
+
+            }
+            else 
+            {
+                x.innerHTML = "Getlocation is not supported by this browser";
+            }
+        }
+
+        function showPosition(position)
+        {
+
+            var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+            //x.innerHTML = "Latitude" + position.coords.latitude + "<br/> Longitude " + position.coords.longitude;
+
+          
+            map.setCenter(geolocate);
+
+            showOpenWeatherbyLatLong(position.coords.latitude, position.coords.longitude);
+
+
+        }
+
+
+        function showOpenWeatherbyLatLong(lat,long)
+        {
+            /* set no cache */
+            $.ajaxSetup({ cache: false });
+
+            //var url = "http://api.openweathermap.org/data/2.5/weather?q=London&APPID=8238c8186b0627f4d981109f16aafd71"
+
+            var url = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon="+ long  + "&APPID=8238c8186b0627f4d981109f16aafd71"
+            var geolocate = new google.maps.LatLng(lat, long);
+         
+            $.getJSON(url, function (json) {
+               // alert(JSON.stringify(json));
+
+               // alert(json.weather[0].description);
+
+                var infowindow = new google.maps.InfoWindow({
+                    map: map,
+                    position: geolocate,
+                    content: '<h1>Location pinned from Geolocation!</h1>' +
+                        '<h2>Latitude: ' + lat + '</h2>' +
+                        '<h2>Longitude: ' + long + '</h2>' +
+                        '<h1> Weather Information </h1>' +
+                        '<h2> Weather : ' + json.weather[0].description +
+                        '<h2> Country : ' + json.sys.country +
+                        '<h2> City : ' + json.name +
+                        '<h2> TEMP : ' + json.main.temp +
+                        '<h2> Humidity : ' + json.main.humidity 
+
+
+                });
+
+            });
+
+           
+
+        
+
+            //$.ajax({
+            //    datatype: "jsonp",
+            //    url: url,
+            //    jsonCallback: 'jsonp',
+            //    data : {lat:lat,lon:long},
+            //    cache: false,
+            //    success: function(data)
+            //    {
+            //        data.city
+            //    }
+            //});
+
+           
+                //$.getJSON( url, {
+                //    tags: "Open Weather",
+                //    tagmode: "any",
+                //    format: "json"
+                //})
+                //  .done(function (data) {
+                //      alert(data);
+
+                //      //$.each( data.items, function( i, item ) {
+                //      //    $( "<img>" ).attr( "src", item.media.m ).appendTo( "#images" );
+                //      //    if ( i === 3 ) {
+                //      //        return false;
+                //      //    }
+                //      //});
+                //  });
+            
+        }
+
+        function showOpenWeatherbyZip() {
+
+        }
+
+        function showOpenWeatherbyCountry() {
+
+        }
+
+
+    </script>
+
+</body>
+</html>

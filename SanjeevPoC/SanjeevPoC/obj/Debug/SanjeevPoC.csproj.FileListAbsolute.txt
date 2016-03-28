@@ -1,0 +1,6 @@
+E:\ezimax\PoC\SanjeevPoC\SanjeevPoC\bin\SanjeevPoC.dll.config
+E:\ezimax\PoC\SanjeevPoC\SanjeevPoC\bin\SanjeevPoC.dll
+E:\ezimax\PoC\SanjeevPoC\SanjeevPoC\bin\SanjeevPoC.pdb
+E:\ezimax\PoC\SanjeevPoC\SanjeevPoC\obj\Debug\SanjeevPoC.csprojResolveAssemblyReference.cache
+E:\ezimax\PoC\SanjeevPoC\SanjeevPoC\obj\Debug\SanjeevPoC.dll
+E:\ezimax\PoC\SanjeevPoC\SanjeevPoC\obj\Debug\SanjeevPoC.pdb
